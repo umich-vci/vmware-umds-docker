@@ -1,6 +1,6 @@
-Dockerfile for VMware vSphere Update Manager Download Service
+# Dockerfile for VMware vSphere Update Manager Download Service
 
-# Build Instructions
+## Build Instructions
 Get the UMDS tar.gz from the vCenter Installer ISO of the version of vCenter you are using and
 drop it alongside the Dockerfile. I have tested the following versions:
 * VMware-UMDS-7.0.3.02200-14372979.tar.gz
@@ -17,7 +17,7 @@ docker build --build-arg UMDS_VERSION=7.0.3.02200-14372979  -t vmware-umds:7.0.3
 
 If you are building on an ARM based Mac, you'll need to add `--platform linux/amd64` to the build command.
 
-# Run Instructions
+## Run Instructions
 
 You can run the image with something like this:
 ```
