@@ -21,6 +21,6 @@ If you are building on an ARM based Mac, you'll need to add `--platform linux/am
 
 You can run the image with something like this:
 ```
-docker run --rm -it -e DOWNLOAD_TOKEN=yourTokenHere vmware-umds:8.0.3
+docker run --volume vmware-umds:/var/lib/vmware-umds --rm -it -e DOWNLOAD_TOKEN=yourTokenHere vmware-umds:8.0.3
 ```
-The startup script currently just edits `/usr/local/vmware-umds/bin/downloadConfig.xml` to inject your download token and then drops you into a shell.
+The startup script currently just edits `/usr/local/vmware-umds/bin/downloadConfig.xml` to inject your download token and then drops you into a shell. Mounting a volume at /var/lib/vmware-umds makes the content you have downloaded persist.
