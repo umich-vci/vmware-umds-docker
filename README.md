@@ -19,8 +19,21 @@ If you are building on an ARM based Mac, you'll need to add `--platform linux/am
 
 ## Run Instructions
 
-You can run the image with something like this:
+The image directly runs the vmware-umds command and by default you will be shown the output of `--help`
+for that command. Mounting a volume at /var/lib/vmware-umds is necessary to make the content you have
+downloaded persist.
+
+You can inject your download key to the configuration by setting the environment variable DOWNLOAD_TOKEN.
 ```
 docker run --volume vmware-umds:/var/lib/vmware-umds --rm -it -e DOWNLOAD_TOKEN=yourTokenHere vmware-umds:8.0.3
 ```
-The startup script currently just edits `/usr/local/vmware-umds/bin/downloadConfig.xml` to inject your download token and then drops you into a shell. Mounting a volume at /var/lib/vmware-umds makes the content you have downloaded persist.
+
+It is also possible to bind mount `downloadConfig.xml` if you need to make additional adjustments to it (such as disabling an ESXi version). If you bind mount an empty file, the default config will be copied over.  You can still set `DOWNLOAD_TOKEN` if you so chose or you can manually edit the file with your token after the default has been copied.
+```
+docker run --volume repodata:/var/lib/vmware-umds --mount type=bind,src=/my/downloadConfig.xml,dst=/usr/local/vmware-umds/bin/downloadConfig.xml --rm -it vmware-umds:8.0.3
+```
+
+If you have your config how you want it and you want to download content (the `-D` argument to vmware-umds), you would run something like:
+```
+docker run --volume repodata:/var/lib/vmware-umds --mount type=bind,src=/my/downloadConfig.xml,dst=/usr/local/vmware-umds/bin/downloadConfig.xml --rm -it vmware-umds:8.0.3 -D
+```

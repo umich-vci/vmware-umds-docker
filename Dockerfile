@@ -9,8 +9,10 @@ RUN --mount=type=bind,source=VMware-UMDS-${UMDS_VERSION}.tar.gz,target=/tmp/VMwa
    sed -i 's/https:\/\/hostupdate.vmware.com\/software\/VUM\/PRODUCTION\/main\/vmw-depot-index.xml/https:\/\/dl.broadcom.com\/REPLACETOKENHERE\/PROD\/COMP\/ESX_HOST\/main\/vmw-depot-index.xml/' /usr/local/vmware-umds/bin/downloadConfig.xml && \
    sed -i 's/https:\/\/hostupdate.vmware.com\/software\/VUM\/PRODUCTION\/addon-main\/vmw-depot-index.xml/https:\/\/dl.broadcom.com\/REPLACETOKENHERE\/PROD\/COMP\/ESX_HOST\/addon-main\/vmw-depot-index.xml/' /usr/local/vmware-umds/bin/downloadConfig.xml && \
    sed -i 's/https:\/\/hostupdate.vmware.com\/software\/VUM\/PRODUCTION\/iovp-main\/vmw-depot-index.xml/https:\/\/dl.broadcom.com\/REPLACETOKENHERE\/PROD\/COMP\/ESX_HOST\/iovp-main\/vmw-depot-index.xml/' /usr/local/vmware-umds/bin/downloadConfig.xml && \
-   sed -i 's/https:\/\/hostupdate.vmware.com\/software\/VUM\/PRODUCTION\/vmtools-main\/vmw-depot-index.xml/https:\/\/dl.broadcom.com\/REPLACETOKENHERE\/PROD\/COMP\/ESX_HOST\/vmtools-main\/vmw-depot-index.xml/' /usr/local/vmware-umds/bin/downloadConfig.xml
+   sed -i 's/https:\/\/hostupdate.vmware.com\/software\/VUM\/PRODUCTION\/vmtools-main\/vmw-depot-index.xml/https:\/\/dl.broadcom.com\/REPLACETOKENHERE\/PROD\/COMP\/ESX_HOST\/vmtools-main\/vmw-depot-index.xml/' /usr/local/vmware-umds/bin/downloadConfig.xml && \
+   cp /usr/local/vmware-umds/bin/downloadConfig.xml /usr/local/vmware-umds/bin/downloadConfig.xml.tmpl
 
-COPY start.sh /start.sh
+COPY entrypoint.sh /entrypoint.sh
 
-CMD ["/start.sh"]
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD ["--help"]
